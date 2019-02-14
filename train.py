@@ -10,11 +10,11 @@ from tensorflow.examples.tutorials.mnist import input_data
 ######### Necessary Flags ############
 ######################################
 tf.app.flags.DEFINE_string(
-    'train_root', os.path.dirname(os.path.abspath(__file__)) + '/train_logs',
+    'train_logs', os.path.dirname(os.path.abspath(__file__)) + '/train_logs',
     'Directory where event logs are written to.')
 
 tf.app.flags.DEFINE_string(
-    'checkpoint_root',
+    'checkpoints',
     os.path.dirname(os.path.abspath(__file__)) + '/checkpoints',
     'Directory where checkpoints are written to.')
 
@@ -52,11 +52,11 @@ FLAGS = tf.app.flags.FLAGS
 ################# handling errors!##############
 ################################################
 
-if not os.path.isabs(FLAGS.train_root):
-    raise ValueError('You must assign absolute path for --train_root')
+if not os.path.isabs(FLAGS.train_logs):
+    raise ValueError('You must assign absolute path for --train_logs')
 
-if not os.path.isabs(FLAGS.checkpoint_root):
-    raise ValueError('You must assign absolute path for --checkpoint_root')
+if not os.path.isabs(FLAGS.checkpoints):
+    raise ValueError('You must assign absolute path for --checkpoints')
 
 
 #######################################
