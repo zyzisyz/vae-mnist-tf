@@ -2,7 +2,7 @@ import numpy as np
 import tensorflow as tf
 from utils.utils import *
 import utils.mnist_data
-from models.vae import *
+from vae import *
 from tensorflow.examples.tutorials.mnist import input_data
 
 
@@ -30,7 +30,7 @@ tf.app.flags.DEFINE_boolean(
 tf.app.flags.DEFINE_float(
     'learn_rate', 0.001, 'learn rate for Adam optimizer.')
 
-tf.app.flags.DEFINE_integer('dim_z', 20,
+tf.app.flags.DEFINE_integer('z_dim', 20,
                             'Dimension of latent vector')
 
 tf.app.flags.DEFINE_integer('batch_size', 128, 'Batch Size')
@@ -57,3 +57,21 @@ if not os.path.isabs(FLAGS.train_root):
 
 if not os.path.isabs(FLAGS.checkpoint_root):
     raise ValueError('You must assign absolute path for --checkpoint_root')
+
+
+#######################################
+############## Training ###############
+#######################################
+
+with tf.Session() as sess:
+    mnist_vae = VAE(sess=sess,
+                    epoch=FLAGS.num_epochs,
+                    batch_size=FLAGS.batch_size,
+                    z_dim=FLAGS.z_dim,
+                    dataset_name="mnist",
+                    checkpoint_dir=FLAGS.checkpoint_dir,
+                    result_dir="./result_dir",
+                    log_dir=FLAGS.log_dir
+                    )
+    mnist_vae.build_model()
+    mnist_vae.train()
