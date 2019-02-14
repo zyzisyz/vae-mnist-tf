@@ -69,9 +69,9 @@ with tf.Session() as sess:
                     batch_size=FLAGS.batch_size,
                     z_dim=FLAGS.z_dim,
                     dataset_name="mnist",
-                    checkpoint_dir=FLAGS.checkpoint_dir,
+                    checkpoint_dir=FLAGS.checkpoints,
                     result_dir="./result_dir",
-                    log_dir=FLAGS.log_dir
+                    log_dir=FLAGS.train_logs
                     )
     mnist_vae.build_model()
     mnist_vae.train()
