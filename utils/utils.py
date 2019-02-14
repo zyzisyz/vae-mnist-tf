@@ -1,5 +1,21 @@
+"""
+Most codes from https://github.com/carpedm20/DCGAN-tensorflow
+"""
+from __future__ import division
+import math
+import random
+import pprint
+import scipy.misc
+import numpy as np
+from time import gmtime, strftime
+from six.moves import xrange
+import matplotlib.pyplot as plt
+import os, gzip
+
+import tensorflow as tf
+import tensorflow.contrib.slim as slim
+
 import sys
-import os
 import datetime
 import time
 
@@ -52,22 +68,6 @@ def get_log_dir():
         os.makedirs(log_path)
     return log_path
 
-"""
-Most codes from https://github.com/carpedm20/DCGAN-tensorflow
-"""
-from __future__ import division
-import math
-import random
-import pprint
-import scipy.misc
-import numpy as np
-from time import gmtime, strftime
-from six.moves import xrange
-import matplotlib.pyplot as plt
-import os, gzip
-
-import tensorflow as tf
-import tensorflow.contrib.slim as slim
 
 def load_mnist(dataset_name):
     data_dir = os.path.join("./data", dataset_name)
