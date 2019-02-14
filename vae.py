@@ -8,7 +8,7 @@ import numpy as np
 from utils.ops import *
 from utils.utils import *
 
-import prior_factory as prior
+import utils.prior_factory as prior
 
 
 class VAE(object):
