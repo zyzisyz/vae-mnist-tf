@@ -1,0 +1,24 @@
+VAE and Triplet Loss tf experiments report.
+
+1. VAE
+
+VAE is a generative-model, which is a popular approach to unsupervised learning of complicated distributions. 
+It can not only reproduce input, but also reduce noise. 
+
+Datasets: mnist
+Code: 
+    1) https://github.com/zyzisyz/vae-mnist-tf
+    2) https://github.com/zyzisyz/tensorflow-mnist-VAE
+    3) https://github.com/hwalsuklee/tensorflow-mnist-VAE
+
+Visualizations of learned data manifold for generative models with 2-dim.
+
+2. Triplet Loss
+
+Triplet Loss is a way to learn good embedding. 
+In the embedding space, voice from the same speaker should be cloase together and form well separated clusters.
+
+Datasets: mnist
+Code:
+    1) https://github.com/zyzisyz/tensorflow-triplet-loss
+    2) a tf official triplet loss API: https://www.tensorflow.org/api_docs/python/tf/contrib/losses/metric_learning/triplet_semihard_loss
