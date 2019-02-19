@@ -54,13 +54,18 @@ class VAE(object):
         # Architecture : (64)4c2s-(128)4c2s_BL-FC1024_BL-FC62*4
         with tf.variable_scope("encoder", reuse=reuse):
 
+            # lrelu是个激活函数
             net = lrelu(conv2d(x, 64, 4, 4, 2, 2, name='en_conv1'))
             net = lrelu(bn(conv2d(net, 128, 4, 4, 2, 2, name='en_conv2'),
                            is_training=is_training, scope='en_bn2'))
             net = tf.reshape(net, [self.batch_size, -1])
             net = lrelu(bn(linear(net, 1024, scope='en_fc3'),
                            is_training=is_training, scope='en_bn3'))
+<<<<<<< HEAD
                            
+=======
+
+>>>>>>> 768ecc505795127a1b33ec2879cc6fbdf4de17ff
             gaussian_params = linear(net, 2 * self.z_dim, scope='en_fc4')
 
             # The mean parameter is unconstrained
@@ -235,8 +240,9 @@ class VAE(object):
                         self.result_dir + '/' + self.model_dir) + '/' + self.model_name + '_epoch%03d' % epoch + '_test_all_classes.png')
 
         """ learned manifold """
+        # 2维才能画manifold
         if self.z_dim == 2:
-            assert self.z_dim == 2
+            # assert self.z_dim == 2
 
             z_tot = None
             id_tot = None
@@ -295,3 +301,13 @@ class VAE(object):
         else:
             print(" [*] Failed to find a checkpoint")
             return False, 0
+
+    def Get_z(self, imge):
+        
+        # encoding
+        mu, sigma = self.encoder(
+                inputs, is_training=False, reuse=False)
+
+        # sampling by re-parameterization technique
+        z = mu + sigma * \
+            tf.random_normal(tf.shape(self.mu), 0, 1, dtype=tf.float32)
