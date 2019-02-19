@@ -78,16 +78,19 @@ def load_mnist(dataset_name):
             buf = bytestream.read(data_size * num_data)
             data = np.frombuffer(buf, dtype=np.uint8).astype(np.float)
         return data
-
+    # 训练集文件
     data = extract_data(data_dir + '/train-images-idx3-ubyte.gz', 60000, 16, 28 * 28)
     trX = data.reshape((60000, 28, 28, 1))
-
+    
+    # 训练集标签
     data = extract_data(data_dir + '/train-labels-idx1-ubyte.gz', 60000, 8, 1)
     trY = data.reshape((60000))
 
+    # 测试集文件
     data = extract_data(data_dir + '/t10k-images-idx3-ubyte.gz', 10000, 16, 28 * 28)
     teX = data.reshape((10000, 28, 28, 1))
 
+    # 测试集标签
     data = extract_data(data_dir + '/t10k-labels-idx1-ubyte.gz', 10000, 8, 1)
     teY = data.reshape((10000))
 

@@ -14,7 +14,7 @@ import utils.prior_factory as prior
 class VAE(object):
     model_name = "VAE"     # name for checkpoint
 
-    def __init__(self, sess, epoch, batch_size, z_dim, dataset_name, checkpoint_dir, result_dir, log_dir):
+    def __init__(self, sess, epoch, batch_size, z_dim, dataset_name, checkpoint_dir, result_dir, log_dir, sample_num=64):
         self.sess = sess
         self.dataset_name = dataset_name
         self.checkpoint_dir = checkpoint_dir
@@ -25,11 +25,16 @@ class VAE(object):
 
         if dataset_name == 'mnist' or dataset_name == 'fashion-mnist':
             # parameters
+
+            # 输入
             self.input_height = 28
             self.input_width = 28
+
+            # 输出
             self.output_height = 28
             self.output_width = 28
 
+            # z的维度
             self.z_dim = z_dim         # dimension of noise-vector
             self.c_dim = 1
 
@@ -38,12 +43,13 @@ class VAE(object):
             self.beta1 = 0.5
 
             # test
-            self.sample_num = 64  # number of generated images to be saved
+            self.sample_num = sample_num  # number of generated images to be saved
 
             # load mnist
             self.data_X, self.data_y = load_mnist(self.dataset_name)
 
             # get number of batches for a single epoch
+            # //表示向下取整
             self.num_batches = len(self.data_X) // self.batch_size
         else:
             raise NotImplementedError
@@ -299,10 +305,10 @@ class VAE(object):
             return False, 0
 
     def Get_z(self, imge):
-        
+
         # encoding
         mu, sigma = self.encoder(
-                inputs, is_training=False, reuse=False)
+            inputs, is_training=False, reuse=False)
 
         # sampling by re-parameterization technique
         z = mu + sigma * \
